@@ -1,4 +1,18 @@
 import random
+"""# simple-card-battle
+This is a programming course material.
+
+##Simple Card Battle Program with Object Oriented
+Text based Card match battle.
+
+This is a two-player card game where the objective is to defeat your opponent by reducing their HP (hit points) to zero. Each player has an HP value and a deck of cards. The cards in the deck have two parameters: attack power and defense power.
+
+At the start of the game, both players draw three cards from their respective decks. These cards possess various attributes, including attack and defense, but players can only see their own cards, not their opponent's. The defending player (the latter) selects one card from their hand to place as a shield, which contributes only its defensive value.
+
+During a player's turn, they choose a card from their hand to attack the opponent. The attack power of the selected card is compared to the opponent's defense power. If the attack power exceeds the defense power, the opponent's HP is reduced by the difference. In case the opponent's defense is higher, no damage is dealt. After attacking, the opponent draws one card from their deck into their hand, and the turn ends.
+
+Following that, the roles of the first and second attackers are switched, and a new turn begins.
+"""
 
 class Card:
 
@@ -7,45 +21,45 @@ class Card:
         self.attack = attack
         self.defense = defense
 
-    def content(self): #ƒJ[ƒh‚Ì“à—e‚ğ•¶š—ñ‚Åæ“¾‚·‚é
+    def content(self): #ã‚«ãƒ¼ãƒ‰ã®å†…å®¹ã‚’æ–‡å­—åˆ—ã§å–å¾—ã™ã‚‹
         return f"{self.name}: attack={self.attack}, defense={self.defense}"
 
     def __str__(self):
         return self.content()
 
     @staticmethod
-    def calcDamage(selected_card,field_card): # ƒ_ƒ[ƒW‚ğŒvZ‚·‚é
+    def calcDamage(selected_card,field_card): # ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’è¨ˆç®—ã™ã‚‹
         damage = selected_card.attack-field_card.defense
         if damage>0:
             return damage
-        return 0 # ƒ_ƒ[ƒW‚ª0ˆÈ‰º‚Ì‚Í0‚ğ•Ô‚·
+        return 0 # ãƒ€ãƒ¡ãƒ¼ã‚¸ãŒ0ä»¥ä¸‹ã®æ™‚ã¯0ã‚’è¿”ã™
 
 class Cards:
     def __init__(self):
-        self.cards = [] # ‹ó‚ÌƒŠƒXƒg
+        self.cards = [] # ç©ºã®ãƒªã‚¹ãƒˆ
 
-    # ƒJ[ƒh‚ğ’Ç‰Á‚·‚é
+    # ã‚«ãƒ¼ãƒ‰ã‚’è¿½åŠ ã™ã‚‹
     def add(self,card):
         self.cards.append(card)
 
-    # ƒJ[ƒh‚Ì–‡”‚ğæ“¾‚·‚é
+    # ã‚«ãƒ¼ãƒ‰ã®æšæ•°ã‚’å–å¾—ã™ã‚‹
     def __len__(self):
-        return len(self.cards) # ƒŠƒXƒg‚Ì’·‚³
+        return len(self.cards) # ãƒªã‚¹ãƒˆã®é•·ã•
 
-    # ƒJ[ƒh‚ğ•\¦‚·‚é
+    # ã‚«ãƒ¼ãƒ‰ã‚’è¡¨ç¤ºã™ã‚‹
     def print(self):
         for index in range(len(self.cards)):
             print(index,self.cards[index])
 
-    # ƒŠƒXƒgcards‚Ì—v‘f‚ğself.cards‚©‚çæ‚èœ‚­
+    # ãƒªã‚¹ãƒˆcardsã®è¦ç´ ã‚’self.cardsã‹ã‚‰å–ã‚Šé™¤ã
     def drop(self, cards):
         for card in cards:
-            if card in self.cards: #‚à‚µƒJ[ƒh‚ªƒŠƒXƒg(self.cards)‚Ì’†‚É‚ ‚ê‚Î
-                self.cards.remove(card) # æ‚èœ‚­
+            if card in self.cards: #ã‚‚ã—ã‚«ãƒ¼ãƒ‰ãŒãƒªã‚¹ãƒˆ(self.cards)ã®ä¸­ã«ã‚ã‚Œã°
+                self.cards.remove(card) # å–ã‚Šé™¤ã
 
-class Deck(Cards): # CardsƒNƒ‰ƒX‚ğeƒNƒ‰ƒX‚Æ‚µ‚ÄŒp³
+class Deck(Cards): # Cardsã‚¯ãƒ©ã‚¹ã‚’è¦ªã‚¯ãƒ©ã‚¹ã¨ã—ã¦ç¶™æ‰¿
     def __init__(self):
-        super().__init__() # e(supuer())‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ğŒÄ‚Ô
+        super().__init__() # è¦ª(supuer())ã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’å‘¼ã¶
         self.add(Card("Card  1", 10, 10))
         self.add(Card("Card  2", 15,  5))
         self.add(Card("Card  3",  5, 15))
@@ -60,59 +74,59 @@ class Deck(Cards): # CardsƒNƒ‰ƒX‚ğeƒNƒ‰ƒX‚Æ‚µ‚ÄŒp³
         self.add(Card("Card 12",  8, 13))
     def draw(self, num):
         picks = random.sample(self.cards, num)
-        self.drop(picks) # “¯‚¶ƒNƒ‰ƒX‚Ìƒƒ\ƒbƒh‚ğŒÄ‚Ôê‡‚É‚Íself.‚ğ‚Â‚¯‚é
+        self.drop(picks) # åŒã˜ã‚¯ãƒ©ã‚¹ã®ãƒ¡ã‚½ãƒƒãƒ‰ã‚’å‘¼ã¶å ´åˆã«ã¯self.ã‚’ã¤ã‘ã‚‹
         return picks
 
-class Hand(Cards): # Cards‚ğeƒNƒ‰ƒX‚Æ‚·‚é
-    def __init__(self,deck): #ƒfƒbƒL‚ğw’è‚·‚é
-        super().__init__() # e‚ÌƒRƒ“ƒXƒgƒ‰ƒNƒ^‚ğŒÄ‚Ô
-        self.cards = deck.draw(3) # 3–‡ˆø‚¢‚ÄèD‚Æ‚·‚é(self.cards‚ğã‘‚«)
-        self.deck = deck # ©•ª‚ÌƒfƒbƒL‚Éw’è‚³‚ê‚½ƒfƒbƒL‚ğ•Û‘¶
-    def draw(self): # ƒfƒbƒL‚©‚çƒJ[ƒh‚ğ1–‡ˆø‚­
-        if len(self.deck)>0: # ƒfƒbƒL‚Ì–‡”‚ğ’²‚×‚é(Deck‚Ì__len__‚ªŒÄ‚Î‚ê‚é)
+class Hand(Cards): # Cardsã‚’è¦ªã‚¯ãƒ©ã‚¹ã¨ã™ã‚‹
+    def __init__(self,deck): #ãƒ‡ãƒƒã‚­ã‚’æŒ‡å®šã™ã‚‹
+        super().__init__() # è¦ªã®ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã‚’å‘¼ã¶
+        self.cards = deck.draw(3) # 3æšå¼•ã„ã¦æ‰‹æœ­ã¨ã™ã‚‹(self.cardsã‚’ä¸Šæ›¸ã)
+        self.deck = deck # è‡ªåˆ†ã®ãƒ‡ãƒƒã‚­ã«æŒ‡å®šã•ã‚ŒãŸãƒ‡ãƒƒã‚­ã‚’ä¿å­˜
+    def draw(self): # ãƒ‡ãƒƒã‚­ã‹ã‚‰ã‚«ãƒ¼ãƒ‰ã‚’1æšå¼•ã
+        if len(self.deck)>0: # ãƒ‡ãƒƒã‚­ã®æšæ•°ã‚’èª¿ã¹ã‚‹(Deckã®__len__ãŒå‘¼ã°ã‚Œã‚‹)
             card = random.sample(self.deck.cards, 1)
-            self.deck.drop(card) # ƒfƒbƒL‚©‚çæ‚èœ‚­
-            self.add(card[0]) # èD‚É‰Á‚¦‚é
+            self.deck.drop(card) # ãƒ‡ãƒƒã‚­ã‹ã‚‰å–ã‚Šé™¤ã
+            self.add(card[0]) # æ‰‹æœ­ã«åŠ ãˆã‚‹
     def select(self,message):
-        if len(self)<=0: # self‚Â‚Ü‚è©•ª(Hand)‚Ìcards‚Ì–‡”‚ª0ˆÈ‰º‚È‚ç
-            return ModuleNotFoundError  # None‚ğ•Ô‚· (None‚Í’l‚ª‚È‚¢‚Ì“ÁêƒL[ƒ[ƒh)
+        if len(self)<=0: # selfã¤ã¾ã‚Šè‡ªåˆ†(Hand)ã®cardsã®æšæ•°ãŒ0ä»¥ä¸‹ãªã‚‰
+            return ModuleNotFoundError  # Noneã‚’è¿”ã™ (Noneã¯å€¤ãŒãªã„æ™‚ã®ç‰¹æ®Šã‚­ãƒ¼ãƒ¯ãƒ¼ãƒ‰)
         self.print()
         while True:
             try:
                 index = int(input(message))
                 card = self.cards[index]
             except Exception as e:
-                if e==KeyboardInterrupt: #ƒGƒ‰[‚ª’†’f‚Ì‚¾‚¯ƒGƒ‰[‚É‚·‚é
+                if e==KeyboardInterrupt: #ã‚¨ãƒ©ãƒ¼ãŒä¸­æ–­ã®æ™‚ã ã‘ã‚¨ãƒ©ãƒ¼ã«ã™ã‚‹
                     raise KeyboardInterrupt
                 print("Error. Try again.")
             else:
-                self.cards.remove(card) #ƒGƒ‰[‚ª‚È‚¢‚ÍèD‚©‚çæ‚èœ‚­
+                self.cards.remove(card) #ã‚¨ãƒ©ãƒ¼ãŒãªã„æ™‚ã¯æ‰‹æœ­ã‹ã‚‰å–ã‚Šé™¤ã
                 break
         return card
 
 
 class Player:
-    # ƒRƒ“ƒXƒgƒ‰ƒNƒ^Bhp‚ğw’è‚µ‚È‚¢‚Í‰Šú’l10
+    # ã‚³ãƒ³ã‚¹ãƒˆãƒ©ã‚¯ã‚¿ã€‚hpã‚’æŒ‡å®šã—ãªã„æ™‚ã¯åˆæœŸå€¤10
     def __init__(self, name, hp=10):
         self.name = name
         self.hp = hp
-        # ƒfƒbƒL‚ğ‚Á‚½Hand‚ÌƒCƒ“ƒXƒ^ƒ“ƒX‚ğ‚Â
+        # ãƒ‡ãƒƒã‚­ã‚’æŒã£ãŸHandã®ã‚¤ãƒ³ã‚¹ã‚¿ãƒ³ã‚¹ã‚’æŒã¤
         self.hand = Hand(Deck())
-    def getHand(self): # hand‚ğ•Ô‚·ƒƒ\ƒbƒh
+    def getHand(self): # handã‚’è¿”ã™ãƒ¡ã‚½ãƒƒãƒ‰
         return self.hand
-    def getName(self): # name‚ğ•Ô‚·ƒƒ\ƒbƒh
+    def getName(self): # nameã‚’è¿”ã™ãƒ¡ã‚½ãƒƒãƒ‰
         return self.name
-    # isLivingOnDamage‚ÍAdamage‚ğ—^‚¦‚½‚É¶‚«‚Ä‚¢‚é‚©‚ğTure/False‚Å•Ô‚·ƒƒ\ƒbƒh
+    # isLivingOnDamageã¯ã€damageã‚’ä¸ãˆãŸæ™‚ã«ç”Ÿãã¦ã„ã‚‹ã‹ã‚’Ture/Falseã§è¿”ã™ãƒ¡ã‚½ãƒƒãƒ‰
     def isLivingOnDamage(self, damage=0):
-        if self.hp<=damage: #ƒ_ƒ[ƒW‚Ì•û‚ªhp‚æ‚è‘å‚«‚¯‚ê‚Î
+        if self.hp<=damage: #ãƒ€ãƒ¡ãƒ¼ã‚¸ã®æ–¹ãŒhpã‚ˆã‚Šå¤§ãã‘ã‚Œã°
             return False
-        else: # hp‚©‚çdamage‚ğˆø‚¢‚Ä‚à0‚æ‚è‘å‚«‚¢
-            self.hp -= damage # hp‚©‚çƒ_ƒ[ƒW‚ğˆø‚­
+        else: # hpã‹ã‚‰damageã‚’å¼•ã„ã¦ã‚‚0ã‚ˆã‚Šå¤§ãã„æ™‚
+            self.hp -= damage # hpã‹ã‚‰ãƒ€ãƒ¡ãƒ¼ã‚¸ã‚’å¼•ã
             return True
-    def __str__(self): # ƒXƒe[ƒ^ƒX•¶š—ñ
+    def __str__(self): # ã‚¹ãƒ†ãƒ¼ã‚¿ã‚¹æ–‡å­—åˆ—
         return f"{self.name}: HP={self.hp}"
 
-    @staticmethod # Œã‚Åà–¾
+    @staticmethod # å¾Œã§èª¬æ˜
     def printStatus(p1, p2):
         print(p1)
         print(p2)
