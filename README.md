@@ -1,7 +1,7 @@
-# simple-card-battle
+# Simple card battle
 This is a programming course material.
 
-##Simple Card Battle Program with Object Oriented
+## Simple Card Battle Program with Object Oriented
 Text based Card match battle.
 
 This is a two-player card game where the objective is to defeat your opponent by reducing their HP (hit points) to zero. Each player has an HP value and a deck of cards. The cards in the deck have two parameters: attack power and defense power.
